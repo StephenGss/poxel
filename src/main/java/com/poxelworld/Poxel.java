@@ -21,14 +21,20 @@ public class Poxel extends SimpleApplication {
 
     @Override
     public void simpleInitApp() {
-        Box b = new Box(1, 1, 1);
-        Geometry geom = new Geometry("Box", b);
+        for(int x=1; x<32; x++){
+            for(int y=1; y<32; y++){
+                for(int z=1; z<32; z++){
+                    Box b = new Box(x, y, x);
+                    Geometry geom = new Geometry("Box", b);
 
-        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setColor("Color", ColorRGBA.Blue);
-        geom.setMaterial(mat);
+                    Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+                    mat.setColor("Color", new ColorRGBA(x/32.0f, 0/32.0f, z/32.0f, 1f));
+                    geom.setMaterial(mat);
 
-        rootNode.attachChild(geom);
+                    rootNode.attachChild(geom);
+                }
+            }
+        }
     }
 
     @Override
