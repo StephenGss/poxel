@@ -4,6 +4,7 @@ import static org.lwjgl.opengl.GL40.*;
 
 import java.nio.FloatBuffer;
 
+import com.sun.tools.javac.Main;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
@@ -15,13 +16,6 @@ public class Window {
 
     private int width = 800;
     private int height = 600;
-
-    private int vaoID, vboID;
-//
-//    private Model model;
-//    private Shader shader;
-
-    private float[] vertexArray;
 
     private long window;
 
@@ -37,7 +31,7 @@ public class Window {
 
     public void run() {
         init();
-        loop();
+        update();
     }
 
     public void init() {
@@ -48,39 +42,26 @@ public class Window {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
-        window = glfwCreateWindow(width, height, "Window", 0, 0);
+        window = glfwCreateWindow(width, height, "Poxel Engine", 0, 0);
         glfwMakeContextCurrent(window);
         GL.createCapabilities();
-
-//        shader = new Shader();
-//        shader.create();
-
-        vaoID = glGenVertexArrays();
-        glBindVertexArray(vaoID);
-
-//        model = new Model(new Vector3f(0, 0, 0), new Vector2f(1, 1), new Vector3f(0, 0, 0));
-//        model.create();
 
         glfwShowWindow(window);
     }
 
-    public void loop() {
+    public void update() {
         while (!glfwWindowShouldClose(window)) {
-//            shader.use();
             glClearColor(1, 1, 1, 1);
             glClear(GL_COLOR_BUFFER_BIT);
-
-//            Render.render(vaoID, model);
-
+            MainGameLoop.render(window);
             glfwSwapBuffers(window);
             glfwPollEvents();
-//            shader.stop();
         }
 
-        glDeleteVertexArrays(vaoID);
-//        model.delete();
-//        shader.delete();
+        close();
+    }
 
+    public void close(){
         glfwTerminate();
     }
 
