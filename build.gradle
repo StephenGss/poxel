@@ -1,212 +1,37 @@
-plugins {
-    id 'application'
-    id 'java'
-    id "de.undercouch.download" version "5.1.0"
-    id 'idea'
-    id "io.github.0ffz.github-packages" version "1.2.1" // Plugin for anonymous inclusion of artifacts hosted in github package registry
-}
+apply plugin: 'java'
+apply plugin: 'application'
 
-description = 'Poxel application'
-
-java {
-    sourceCompatibility = '11'
-    targetCompatibility = '11'
-}
-
-ext.jmonkeyengineVersion = '3.5.2-stable'
-
-mainClassName = 'com.poxelworld.Poxel'
-if (!hasProperty('mainClass')) {
-    ext.mainClass = mainClassName
-}
-jar.manifest.attributes('Main-Class': mainClassName)
+project.ext.lwjglVersion = "3.3.1"
+project.ext.jomlVersion = "1.10.5"
+project.ext.lwjglNatives = "natives-windows"
 
 repositories {
-    maven { url "https://jitpack.io" }
-    mavenCentral()
-    mavenLocal()
+	mavenCentral()
 }
 
 dependencies {
-    // You can read more about how to add dependencies here:
-    //   https://docs.gradle.org/current/userguide/dependency_management.html#sec:how_to_declare_your_dependencies
+	implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
 
-    implementation 'org.jmonkeyengine:jme3-core:' + jmonkeyengineVersion
-    runtimeOnly 'org.jmonkeyengine:jme3-jogg:' + jmonkeyengineVersion
-    runtimeOnly 'org.jmonkeyengine:jme3-plugins:' + jmonkeyengineVersion
-
-    implementation 'org.jmonkeyengine:jme3-effects:' + jmonkeyengineVersion
-    implementation 'org.jmonkeyengine:jme3-terrain:' + jmonkeyengineVersion
-    implementation 'org.jmonkeyengine:jme3-networking:' + jmonkeyengineVersion
-    runtimeOnly 'org.jmonkeyengine:jme3-lwjgl3:' + jmonkeyengineVersion
-
-    implementation 'com.simsilica:lemur:1.16.0'
-    implementation 'com.simsilica:lemur-proto:1.13.0'
-    implementation 'com.github.stephengold:Minie:6.0.1'
-    implementation 'com.github.rvandoosselaer:blocks:v1.7.1'
-    implementation 'org.apache.logging.log4j:log4j-core:2.19.0'
-    implementation 'org.apache.logging.log4j:log4j-api:2.19.0'
-    implementation 'com.github.stephengold:Minie:7.1.0'
-}
-
-distZip {
-    //having a degenerate folder within the dist zip complicates generating the other zips
-    eachFile { file ->
-        String path = file.relativePath
-        file.setPath(path.substring(path.indexOf("/") + 1, path.length()))
-    }
-    includeEmptyDirs(false)
-}
-
-//See https://api.adoptium.net/v3/assets/feature_releases/11/ga?image_type=jre for jre urls
-def windowsJreUrl = "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.15%2B10/OpenJDK11U-jre_x64_windows_hotspot_11.0.15_10.zip"
-def linuxJreUrl = "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.15%2B10/OpenJDK11U-jre_x64_linux_hotspot_11.0.15_10.tar.gz"
-def macJreUrl = "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.15%2B10/OpenJDK11U-jre_x64_mac_hotspot_11.0.15_10.tar.gz"
-
-
-task downloadWindowsJre(type: Download) {
-    src windowsJreUrl
-    dest new File(buildDir, '/jres/windowsJre.zip')
-    overwrite false
-}
-
-task downloadAndUnzipWindowsJre(dependsOn: downloadWindowsJre, type: Copy) {
-    from zipTree(downloadWindowsJre.dest)
-    into "${buildDir}/jres/windowsJre/"
-    includeEmptyDirs(false)
-    filesMatching("**") {
-        it.path = it.path.replaceAll("^[a-zA-Z0-9.+-]*[/\\\\]", "jre/") //rename the top level to something standard so the rest of the script will be easier
-    }
-}
-
-task buildWindowsDistribution(dependsOn: [distZip, downloadAndUnzipWindowsJre], type: Copy)
-{
-    group 'distribution'
-    from files("${projectDir}/scripts/desktopDeployment/Poxel.bat"), zipTree(distZip.archiveFile), "${buildDir}/jres/windowsJre"
-    into new File(buildDir, 'distributions/Poxel-windows')
-    includeEmptyDirs false
-    exclude 'bin/**' //we are adding our own run scripts, exclude the ones coming from distZip
-}
-
-task zipWindowsDistribution( dependsOn:buildWindowsDistribution, type: Zip) {
-    group 'distribution'
-    archiveFileName = "Poxel-windows.zip"
-    destinationDirectory = file("$buildDir/distributions")
-    from "$buildDir/distributions/Poxel-windows"
-}
-
-
-task downloadLinuxJre(type: Download) {
-    src linuxJreUrl
-    dest new File(buildDir, '/jres/linuxJre.tar.gz')
-    overwrite false
-}
-
-task downloadAndUnzipLinuxJre(dependsOn: downloadLinuxJre, type: Copy) {
-    from tarTree(downloadLinuxJre.dest)
-    into "${buildDir}/jres/linuxJre/"
-    includeEmptyDirs(false)
-    filesMatching("**") {
-        it.path = it.path.replaceAll("^[a-zA-Z0-9.+-]*[/\\\\]", "jre/") //rename the top level to something standard so the rest of the script will be easier
-    }
-}
-
-task buildLinuxDistribution(dependsOn: [distZip, downloadAndUnzipLinuxJre], type: Copy)
-{
-    group 'distribution'
-    from files("${projectDir}/scripts/desktopDeployment/Poxel.sh"){
-        fileMode 0755
-    }
-    from zipTree(distZip.archiveFile)
-    from "${buildDir}/jres/linuxJre"
-    into new File(buildDir, 'distributions/Poxel-linux')
-    includeEmptyDirs false
-    exclude 'bin/**' //we are adding our own run scripts, exclude the ones coming from distZip
-}
-
-task zipLinuxDistribution( dependsOn:buildLinuxDistribution, type: Zip) {
-    group 'distribution'
-    archiveFileName = "Poxel-linux.tar.gz"
-    destinationDirectory = file("$buildDir/distributions")
-    from ("$buildDir/distributions/Poxel-linux"){
-      include('**.sh')
-      include('**/java')
-      fileMode 0755
-    }
-    from ("$buildDir/distributions/Poxel-linux"){
-        exclude('**.sh')
-        exclude('**/java')
-    }
-}
-
-
-task downloadMacJre(type: Download) {
-    src macJreUrl
-    dest new File(buildDir, '/jres/macJre.tar.gz')
-    overwrite false
-}
-
-task downloadAndUnzipMacJre(dependsOn: downloadMacJre, type: Copy) {
-    from tarTree(downloadMacJre.dest)
-    into "${buildDir}/jres/macJre/"
-    includeEmptyDirs(false)
-    filesMatching("**") {
-        it.path = it.path.replaceAll("^[a-zA-Z0-9.+-]*[/\\\\]", "jre/") //rename the top level to something standard so the rest of the script will be easier
-    }
-}
-
-task buildMacDistribution(dependsOn: [distZip, downloadAndUnzipMacJre], type: Copy)
-{
-    group 'distribution'
-    from files("${projectDir}/scripts/desktopDeployment/Poxel.command"){
-        fileMode 0755
-    }
-    from zipTree(distZip.archiveFile) 
-    from "${buildDir}/jres/macJre"
-    into new File(buildDir, 'distributions/Poxel-mac')
-    includeEmptyDirs false
-    exclude 'bin/**' //we are adding our own run scripts, exclude the ones coming from distZip
-}
-
-task zipMacDistribution( dependsOn:buildMacDistribution, type: Zip) {
-    group 'distribution'
-    archiveFileName = "Poxel-mac.tar.gz"
-    destinationDirectory = file("$buildDir/distributions")
-    from ("$buildDir/distributions/Poxel-mac"){
-      include('**.command')
-      include('**/java')
-      fileMode 0755
-    }
-    from ("$buildDir/distributions/Poxel-mac"){
-        exclude('**.command')
-        exclude('**/java')
-    }
-}
-
-task buildAllDistributions{
-    group 'distribution'
-    dependsOn 'zipWindowsDistribution'
-    dependsOn 'zipLinuxDistribution'
-    dependsOn 'zipMacDistribution'
-}
-
-// cleanup tasks
-clean.dependsOn('cleanDLLs', 'cleanDyLibs', 'cleanLogs', 'cleanSOs')
-task cleanDLLs(type: Delete) {
-    delete fileTree(dir: '.', include: '*.dll')
-}
-task cleanDyLibs(type: Delete) {
-    delete fileTree(dir: '.', include: '*.dylib')
-}
-task cleanLogs(type: Delete) {
-    delete fileTree(dir: '.', include: 'hs_err_pid*.log')
-}
-task cleanSOs(type: Delete) {
-    delete fileTree(dir: '.', include: '*.so')
-}
-
-task fund(){
-    doLast {
-       java.awt.Desktop.desktop.browse "https://start.jmonkeyengine.org/#!funding=JME_DESKTOP,JME_EFFECTS,JME_TERRAIN,LEMUR,JME_NETWORKING,11511%2F38308161-c3cf-4e23-8754-528ca8387c11,16130%2F1a85df6f-4bb6-4c85-9e77-b5119662ed54,LOG4J2,MINIE".toURI()
-    }
+	implementation "org.lwjgl:lwjgl"
+	implementation "org.lwjgl:lwjgl-assimp"
+	implementation "org.lwjgl:lwjgl-bgfx"
+	implementation "org.lwjgl:lwjgl-glfw"
+	implementation "org.lwjgl:lwjgl-nanovg"
+	implementation "org.lwjgl:lwjgl-nuklear"
+	implementation "org.lwjgl:lwjgl-openal"
+	implementation "org.lwjgl:lwjgl-opengl"
+	implementation "org.lwjgl:lwjgl-par"
+	implementation "org.lwjgl:lwjgl-stb"
+	implementation "org.lwjgl:lwjgl-vulkan"
+	runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
+	runtimeOnly "org.lwjgl:lwjgl-assimp::$lwjglNatives"
+	runtimeOnly "org.lwjgl:lwjgl-bgfx::$lwjglNatives"
+	runtimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
+	runtimeOnly "org.lwjgl:lwjgl-nanovg::$lwjglNatives"
+	runtimeOnly "org.lwjgl:lwjgl-nuklear::$lwjglNatives"
+	runtimeOnly "org.lwjgl:lwjgl-openal::$lwjglNatives"
+	runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
+	runtimeOnly "org.lwjgl:lwjgl-par::$lwjglNatives"
+	runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
+	implementation "org.joml:joml:${jomlVersion}"
 }
