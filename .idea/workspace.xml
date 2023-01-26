@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70481850-79e6-41bf-a49f-73bd243b3a19" name="Changes" comment="Update to IntelliJ LWJGL">
-      <change afterPath="$PROJECT_DIR$/src/main/java/engine/MainGameLoop.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/engine/render/Loader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/engine/render/RawModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/engine/render/Renderer.java" afterDir="false" />
+    <list default="true" id="70481850-79e6-41bf-a49f-73bd243b3a19" name="Changes" comment="Draw a black square">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/fragmentShader" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/vertexShader" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Start.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Start.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/MainGameLoop.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/Window.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/render/Loader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/render/RawModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/render/Renderer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Start.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +53,20 @@
     "settings.editor.selected.configurable": "inlay.hints"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.Main" />
+      <module name="poxel.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Start" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.Start" />
       <module name="poxel.main" />
@@ -65,6 +80,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Start" />
+      <item itemvalue="Application.Main" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -96,11 +120,19 @@
       <option name="project" value="LOCAL" />
       <updated>1674670439303</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Draw a black square">
+      <created>1674683908817</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1674683908817</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update to IntelliJ LWJGL" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update to IntelliJ LWJGL" />
+    <MESSAGE value="Draw a black square" />
+    <option name="LAST_COMMIT_MESSAGE" value="Draw a black square" />
   </component>
 </project>
