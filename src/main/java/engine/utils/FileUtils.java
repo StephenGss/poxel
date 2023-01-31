@@ -1,14 +1,15 @@
 package engine.utils;
 
+import org.lwjgl.stb.STBImage;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class FileUtils {
 	public static String loadAsString(String path) {
 		StringBuilder result = new StringBuilder();
-		
+
 		try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
 			String line = "";
 			while ((line = reader.readLine()) != null) {

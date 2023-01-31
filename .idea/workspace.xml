@@ -4,16 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70481850-79e6-41bf-a49f-73bd243b3a19" name="Changes" comment="Draw a black square">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/fragmentShader" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/shaders/vertexShader" afterDir="false" />
+    <list default="true" id="70481850-79e6-41bf-a49f-73bd243b3a19" name="Changes" comment="Start over using different tutorial. Shaders working now.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/Material.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/engine/io/IOUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/engine/maths/Vector2f.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/MainGameLoop.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/Window.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/render/Loader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/render/RawModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/render/Renderer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Start.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/graphics/Mesh.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/Mesh.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/graphics/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/graphics/Vertex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/Vertex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/utils/FileUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/utils/FileUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/mainFragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/mainFragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/mainVertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/mainVertex.glsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,13 +49,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "settings.editor.selected.configurable": "inlay.hints"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.Main" />
@@ -127,12 +130,31 @@
       <option name="project" value="LOCAL" />
       <updated>1674683908817</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Start over using different tutorial. Shaders working now.">
+      <created>1674706771502</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1674706771502</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update to IntelliJ LWJGL" />
     <MESSAGE value="Draw a black square" />
-    <option name="LAST_COMMIT_MESSAGE" value="Draw a black square" />
+    <MESSAGE value="Start over using different tutorial. Shaders working now." />
+    <option name="LAST_COMMIT_MESSAGE" value="Start over using different tutorial. Shaders working now." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/engine/io/IOUtil.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
