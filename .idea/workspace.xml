@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70481850-79e6-41bf-a49f-73bd243b3a19" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/engine/maths/Matrix4f.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/engine/object/GameObject.java" afterDir="false" />
+    <list default="true" id="70481850-79e6-41bf-a49f-73bd243b3a19" name="Changes" comment="Add camera translational movement">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/graphics/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/Renderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/graphics/Shader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/Shader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/graphics/Vertex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/Vertex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/io/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/io/Window.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/object/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/object/Camera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/mainVertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/mainVertex.glsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +137,21 @@
       <option name="project" value="LOCAL" />
       <updated>1675133310063</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Add matrix transformations and GameObject">
+      <created>1675220560467</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1675220560467</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Add camera translational movement">
+      <created>1675223992921</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1675223992921</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -147,7 +159,9 @@
     <MESSAGE value="Draw a black square" />
     <MESSAGE value="Start over using different tutorial. Shaders working now." />
     <MESSAGE value="Start over using different tutorial. Shaders and textures working now.&#10;&#10;Had to grab a few pieces from STBImage demo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Start over using different tutorial. Shaders and textures working now.&#10;&#10;Had to grab a few pieces from STBImage demo" />
+    <MESSAGE value="Add matrix transformations and GameObject" />
+    <MESSAGE value="Add camera translational movement" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add camera translational movement" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

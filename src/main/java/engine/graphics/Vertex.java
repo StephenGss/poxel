@@ -18,6 +18,13 @@ public class Vertex {
 		this.color = color;
 		this.textureCoord = new Vector2f(0, 0);
 	}
+
+	public Vertex(Vector3f position, Vector2f textureCoord) {
+		this.position = position;
+		this.color = new Vector3f(0, 0, 0);
+		this.textureCoord = textureCoord;
+	}
+
 	public Vertex(Vector3f position, Vector3f color, Vector2f textureCoord) {
 		this.position = position;
 		this.color = color;
