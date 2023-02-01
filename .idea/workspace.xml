@@ -4,18 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70481850-79e6-41bf-a49f-73bd243b3a19" name="Changes" comment="Start over using different tutorial. Shaders working now.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/Material.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/engine/io/IOUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/engine/maths/Vector2f.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="70481850-79e6-41bf-a49f-73bd243b3a19" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/engine/maths/Matrix4f.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/engine/object/GameObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/graphics/Mesh.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/Mesh.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/engine/graphics/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/Renderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/graphics/Vertex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/Vertex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/utils/FileUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/utils/FileUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/graphics/Shader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/Shader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/mainFragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/mainFragment.glsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/mainVertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/mainVertex.glsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -137,14 +132,22 @@
       <option name="project" value="LOCAL" />
       <updated>1674706771502</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Start over using different tutorial. Shaders and textures working now.&#10;&#10;Had to grab a few pieces from STBImage demo">
+      <created>1675133310063</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1675133310063</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update to IntelliJ LWJGL" />
     <MESSAGE value="Draw a black square" />
     <MESSAGE value="Start over using different tutorial. Shaders working now." />
-    <option name="LAST_COMMIT_MESSAGE" value="Start over using different tutorial. Shaders working now." />
+    <MESSAGE value="Start over using different tutorial. Shaders and textures working now.&#10;&#10;Had to grab a few pieces from STBImage demo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Start over using different tutorial. Shaders and textures working now.&#10;&#10;Had to grab a few pieces from STBImage demo" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

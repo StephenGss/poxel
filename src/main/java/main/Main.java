@@ -2,7 +2,7 @@ package main;
 
 import engine.graphics.*;
 import engine.maths.Vector2f;
-import engine.utils.FileUtils;
+import engine.object.GameObject;
 import org.lwjgl.glfw.GLFW;
 
 import engine.io.Input;
@@ -19,6 +19,7 @@ public class Main implements Runnable {
 	public Renderer renderer;
 	public Shader shader;
 	public final int WIDTH = 1280, HEIGHT = 760;
+	public List<Integer> textures = new ArrayList<Integer>();
 	
 	public Mesh mesh = new Mesh(new Vertex[] {
 			new Vertex(new Vector3f(-0.5f,  0.5f, 0.0f), new Vector3f(1.0f, 0f, 0f), new Vector2f(0.0f, 0.0f)),
@@ -29,7 +30,8 @@ public class Main implements Runnable {
 			0, 1, 2,
 			0, 3, 2
 		},new Material("src/main/resources/textures/grass.png"));
-	public List<Integer> textures = new ArrayList<Integer>();
+
+	public GameObject object = new GameObject(new Vector3f(0,0,0), new Vector3f(0,0,0), new Vector3f(1,1,1), mesh);
 	
 	public void start() {
 		game = new Thread(this, "game");
@@ -61,11 +63,12 @@ public class Main implements Runnable {
 	
 	private void update() {
 		window.update();
+		object.update();
 		if (Input.isButtonDown(GLFW.GLFW_MOUSE_BUTTON_LEFT)) System.out.println("X: " + Input.getScrollX() + ", Y: " + Input.getScrollY());
 	}
 	
 	private void render() {
-		renderer.renderMesh(mesh);
+		renderer.renderObject(object);
 		window.swapBuffers();
 	}
 
