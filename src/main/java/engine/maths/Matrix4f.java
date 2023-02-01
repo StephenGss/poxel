@@ -1,5 +1,7 @@
 package engine.maths;
 
+import java.util.Arrays;
+
 public class Matrix4f {
     public static final int SIZE = 4;
     private float[] elements = new float[SIZE * SIZE];
@@ -25,8 +27,8 @@ public class Matrix4f {
         Matrix4f result = Matrix4f.identity();
 
         result.set(3, 0, translate.getX());
-        result.set(3, 1, translate.getX());
-        result.set(3, 2, translate.getX());
+        result.set(3, 1, translate.getY());
+        result.set(3, 2, translate.getZ());
 
         return result;
     }
@@ -62,7 +64,7 @@ public class Matrix4f {
     }
 
     public static Matrix4f transform(Vector3f position, Vector3f rotation, Vector3f scale) {
-        Matrix4f result = Matrix4f.identity();
+        Matrix4f result;
 
         Matrix4f translationMatrix = Matrix4f.translate(position);
         Matrix4f rotXMatrix = Matrix4f.rotate(rotation.getX(), new Vector3f(1, 0, 0));
@@ -73,6 +75,40 @@ public class Matrix4f {
         Matrix4f rotationMatrix = Matrix4f.multiply(rotXMatrix, Matrix4f.multiply(rotYMatrix, rotZMatrix));
 
         result = Matrix4f.multiply(translationMatrix, Matrix4f.multiply(rotationMatrix, scaleMatrix));
+
+        return result;
+    }
+
+    // orthographic projection
+    public static Matrix4f projection(float fov, float aspect, float near, float far){
+        Matrix4f result = Matrix4f.identity();
+
+        float tanFOV = (float)Math.tan(Math.toRadians(fov/2));
+        float range = far - near;
+
+        result.set(0, 0, 1.0f/ (aspect * tanFOV));
+        result.set(1, 1, 1.0f/ tanFOV);
+        result.set(2, 2, -(far + near) / range);
+        result.set(3, 2, -(2 * far * near) / range);
+        result.set(2, 3, -1f);
+        result.set(3, 3, 0f);
+
+        return result;
+    }
+
+    // view matrix - this is the camera
+    public static Matrix4f view(Vector3f position, Vector3f rotation){
+        Matrix4f result;
+
+        Vector3f negative = new Vector3f(-position.getX(), -position.getY(), -position.getZ());
+        Matrix4f translationMatrix = Matrix4f.translate(negative);
+        Matrix4f rotXMatrix = Matrix4f.rotate(rotation.getX(), new Vector3f(1, 0, 0));
+        Matrix4f rotYMatrix = Matrix4f.rotate(rotation.getY(), new Vector3f(0, 1, 0));
+        Matrix4f rotZMatrix = Matrix4f.rotate(rotation.getZ(), new Vector3f(0, 0, 1));
+
+        Matrix4f rotationMatrix = Matrix4f.multiply(rotZMatrix, Matrix4f.multiply(rotYMatrix, rotXMatrix));
+
+        result = Matrix4f.multiply(translationMatrix, rotationMatrix);
 
         return result;
     }
@@ -90,6 +126,18 @@ public class Matrix4f {
         }
 
         return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Matrix4f matrix4f)) return false;
+        return Arrays.equals(elements, matrix4f.elements);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(elements);
     }
 
     public float get(int x, int y){

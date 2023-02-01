@@ -2,6 +2,7 @@ package main;
 
 import engine.graphics.*;
 import engine.maths.Vector2f;
+import engine.object.Camera;
 import engine.object.GameObject;
 import org.lwjgl.glfw.GLFW;
 
@@ -32,6 +33,8 @@ public class Main implements Runnable {
 		},new Material("src/main/resources/textures/grass.png"));
 
 	public GameObject object = new GameObject(new Vector3f(0,0,0), new Vector3f(0,0,0), new Vector3f(1,1,1), mesh);
+
+	public Camera camera = new Camera(new Vector3f(0,0,1), new Vector3f(0,0,0));
 	
 	public void start() {
 		game = new Thread(this, "game");
@@ -41,7 +44,7 @@ public class Main implements Runnable {
 	public void init() {
 		window = new Window(WIDTH, HEIGHT, "Game");
 		shader = new Shader("src/main/resources/shaders/mainVertex.glsl", "src/main/resources/shaders/mainFragment.glsl");
-		renderer = new Renderer(shader);
+		renderer = new Renderer(window, shader);
 		window.setBackgroundColor(1.0f, 0, 0);
 		window.create();
 		mesh.create();
@@ -63,12 +66,16 @@ public class Main implements Runnable {
 	
 	private void update() {
 		window.update();
-		object.update();
-		if (Input.isButtonDown(GLFW.GLFW_MOUSE_BUTTON_LEFT)) System.out.println("X: " + Input.getScrollX() + ", Y: " + Input.getScrollY());
+		camera.update();
+		if (Input.isButtonDown(GLFW.GLFW_MOUSE_BUTTON_LEFT)) {
+			System.out.println("X: " + Input.getScrollX() + ", Y: " + Input.getScrollY());
+//			camera.getPosition().setZ(camera.getPosition().getZ()+0.1f);
+		}
+
 	}
 	
 	private void render() {
-		renderer.renderObject(object);
+		renderer.renderObject(object, camera);
 		window.swapBuffers();
 	}
 
