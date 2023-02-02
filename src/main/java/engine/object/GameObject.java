@@ -23,6 +23,10 @@ public class GameObject {
 //        scale.set((float) Math.sin(temp), (float) Math.sin(temp), (float) Math.sin(temp));
     }
 
+    public void create(){
+        mesh.create();
+    }
+
     public Vector3f getPosition() {
         return position;
     }

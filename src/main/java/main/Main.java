@@ -1,6 +1,7 @@
 package main;
 
 import engine.graphics.*;
+import engine.graphics.model.OBJLoader;
 import engine.maths.Vector2f;
 import engine.object.Camera;
 import engine.object.GameObject;
@@ -20,71 +21,72 @@ public class Main implements Runnable {
 	public Renderer renderer;
 	public Shader shader;
 	public final int WIDTH = 1280, HEIGHT = 760;
+	public boolean isThirdPerson = false;
 	public List<Integer> textures = new ArrayList<Integer>();
 
-	public Mesh mesh = new Mesh(new Vertex[] {
-			//Back face
-			new Vertex(new Vector3f(-0.5f,  0.5f, -0.5f), new Vector2f(0.0f, 0.0f)),
-			new Vertex(new Vector3f(-0.5f, -0.5f, -0.5f), new Vector2f(0.0f, 1.0f)),
-			new Vertex(new Vector3f( 0.5f, -0.5f, -0.5f), new Vector2f(1.0f, 1.0f)),
-			new Vertex(new Vector3f( 0.5f,  0.5f, -0.5f), new Vector2f(1.0f, 0.0f)),
+//	public Mesh mesh = new Mesh(new Vertex[] {
+//			//Back face
+//			new Vertex(new Vector3f(-0.5f,  0.5f, -0.5f), new Vector2f(0.0f, 0.0f)),
+//			new Vertex(new Vector3f(-0.5f, -0.5f, -0.5f), new Vector2f(0.0f, 1.0f)),
+//			new Vertex(new Vector3f( 0.5f, -0.5f, -0.5f), new Vector2f(1.0f, 1.0f)),
+//			new Vertex(new Vector3f( 0.5f,  0.5f, -0.5f), new Vector2f(1.0f, 0.0f)),
+//
+//			//Front face
+//			new Vertex(new Vector3f(-0.5f,  0.5f,  0.5f), new Vector2f(0.0f, 0.0f)),
+//			new Vertex(new Vector3f(-0.5f, -0.5f,  0.5f), new Vector2f(0.0f, 1.0f)),
+//			new Vertex(new Vector3f( 0.5f, -0.5f,  0.5f), new Vector2f(1.0f, 1.0f)),
+//			new Vertex(new Vector3f( 0.5f,  0.5f,  0.5f), new Vector2f(1.0f, 0.0f)),
+//
+//			//Right face
+//			new Vertex(new Vector3f( 0.5f,  0.5f, -0.5f), new Vector2f(0.0f, 0.0f)),
+//			new Vertex(new Vector3f( 0.5f, -0.5f, -0.5f), new Vector2f(0.0f, 1.0f)),
+//			new Vertex(new Vector3f( 0.5f, -0.5f,  0.5f), new Vector2f(1.0f, 1.0f)),
+//			new Vertex(new Vector3f( 0.5f,  0.5f,  0.5f), new Vector2f(1.0f, 0.0f)),
+//
+//			//Left face
+//			new Vertex(new Vector3f(-0.5f,  0.5f, -0.5f), new Vector2f(0.0f, 0.0f)),
+//			new Vertex(new Vector3f(-0.5f, -0.5f, -0.5f), new Vector2f(0.0f, 1.0f)),
+//			new Vertex(new Vector3f(-0.5f, -0.5f,  0.5f), new Vector2f(1.0f, 1.0f)),
+//			new Vertex(new Vector3f(-0.5f,  0.5f,  0.5f), new Vector2f(1.0f, 0.0f)),
+//
+//			//Top face
+//			new Vertex(new Vector3f(-0.5f,  0.5f,  0.5f), new Vector2f(0.0f, 0.0f)),
+//			new Vertex(new Vector3f(-0.5f,  0.5f, -0.5f), new Vector2f(0.0f, 1.0f)),
+//			new Vertex(new Vector3f( 0.5f,  0.5f, -0.5f), new Vector2f(1.0f, 1.0f)),
+//			new Vertex(new Vector3f( 0.5f,  0.5f,  0.5f), new Vector2f(1.0f, 0.0f)),
+//
+//			//Bottom face
+//			new Vertex(new Vector3f(-0.5f, -0.5f,  0.5f), new Vector2f(0.0f, 0.0f)),
+//			new Vertex(new Vector3f(-0.5f, -0.5f, -0.5f), new Vector2f(0.0f, 1.0f)),
+//			new Vertex(new Vector3f( 0.5f, -0.5f, -0.5f), new Vector2f(1.0f, 1.0f)),
+//			new Vertex(new Vector3f( 0.5f, -0.5f,  0.5f), new Vector2f(1.0f, 0.0f)),
+//	}, new int[] {
+//			//Back face
+//			0, 1, 3,
+//			3, 1, 2,
+//
+//			//Front face
+//			4, 5, 7,
+//			7, 5, 6,
+//
+//			//Right face
+//			8, 9, 11,
+//			11, 9, 10,
+//
+//			//Left face
+//			12, 13, 15,
+//			15, 13, 14,
+//
+//			//Top face
+//			16, 17, 19,
+//			19, 17, 18,
+//
+//			//Bottom face
+//			20, 21, 23,
+//			23, 21, 22
+//	}, new Material("src/main/resources/textures/grass.png"));
 
-			//Front face
-			new Vertex(new Vector3f(-0.5f,  0.5f,  0.5f), new Vector2f(0.0f, 0.0f)),
-			new Vertex(new Vector3f(-0.5f, -0.5f,  0.5f), new Vector2f(0.0f, 1.0f)),
-			new Vertex(new Vector3f( 0.5f, -0.5f,  0.5f), new Vector2f(1.0f, 1.0f)),
-			new Vertex(new Vector3f( 0.5f,  0.5f,  0.5f), new Vector2f(1.0f, 0.0f)),
-
-			//Right face
-			new Vertex(new Vector3f( 0.5f,  0.5f, -0.5f), new Vector2f(0.0f, 0.0f)),
-			new Vertex(new Vector3f( 0.5f, -0.5f, -0.5f), new Vector2f(0.0f, 1.0f)),
-			new Vertex(new Vector3f( 0.5f, -0.5f,  0.5f), new Vector2f(1.0f, 1.0f)),
-			new Vertex(new Vector3f( 0.5f,  0.5f,  0.5f), new Vector2f(1.0f, 0.0f)),
-
-			//Left face
-			new Vertex(new Vector3f(-0.5f,  0.5f, -0.5f), new Vector2f(0.0f, 0.0f)),
-			new Vertex(new Vector3f(-0.5f, -0.5f, -0.5f), new Vector2f(0.0f, 1.0f)),
-			new Vertex(new Vector3f(-0.5f, -0.5f,  0.5f), new Vector2f(1.0f, 1.0f)),
-			new Vertex(new Vector3f(-0.5f,  0.5f,  0.5f), new Vector2f(1.0f, 0.0f)),
-
-			//Top face
-			new Vertex(new Vector3f(-0.5f,  0.5f,  0.5f), new Vector2f(0.0f, 0.0f)),
-			new Vertex(new Vector3f(-0.5f,  0.5f, -0.5f), new Vector2f(0.0f, 1.0f)),
-			new Vertex(new Vector3f( 0.5f,  0.5f, -0.5f), new Vector2f(1.0f, 1.0f)),
-			new Vertex(new Vector3f( 0.5f,  0.5f,  0.5f), new Vector2f(1.0f, 0.0f)),
-
-			//Bottom face
-			new Vertex(new Vector3f(-0.5f, -0.5f,  0.5f), new Vector2f(0.0f, 0.0f)),
-			new Vertex(new Vector3f(-0.5f, -0.5f, -0.5f), new Vector2f(0.0f, 1.0f)),
-			new Vertex(new Vector3f( 0.5f, -0.5f, -0.5f), new Vector2f(1.0f, 1.0f)),
-			new Vertex(new Vector3f( 0.5f, -0.5f,  0.5f), new Vector2f(1.0f, 0.0f)),
-	}, new int[] {
-			//Back face
-			0, 1, 3,
-			3, 1, 2,
-
-			//Front face
-			4, 5, 7,
-			7, 5, 6,
-
-			//Right face
-			8, 9, 11,
-			11, 9, 10,
-
-			//Left face
-			12, 13, 15,
-			15, 13, 14,
-
-			//Top face
-			16, 17, 19,
-			19, 17, 18,
-
-			//Bottom face
-			20, 21, 23,
-			23, 21, 22
-	}, new Material("src/main/resources/textures/grass.png"));
-
-	public GameObject object = new GameObject(new Vector3f(0,0,0), new Vector3f(0,0,0), new Vector3f(1,1,1), mesh);
+	public GameObject object = new GameObject(new Vector3f(0,0,0), new Vector3f(0,0,0), new Vector3f(1,1,1), OBJLoader.loadObjModel("stall"));
 
 	public Camera camera = new Camera(new Vector3f(0,0,1), new Vector3f(0,0,0));
 	
@@ -99,7 +101,7 @@ public class Main implements Runnable {
 		renderer = new Renderer(window, shader);
 		window.setBackgroundColor(1.0f, 0, 0);
 		window.create();
-		mesh.create();
+		object.create();
 		shader.create();
 	}
 	
@@ -118,10 +120,19 @@ public class Main implements Runnable {
 	
 	private void update() {
 		window.update();
-		camera.update();
+		if(isThirdPerson)
+			camera.update(object);
+		else
+			camera.update();
 		if (Input.isButtonDown(GLFW.GLFW_MOUSE_BUTTON_LEFT)) {
 			window.mouseState(true);
 //			camera.getPosition().setZ(camera.getPosition().getZ()+0.1f);
+		}
+		if(Input.isKeyDown(GLFW.GLFW_KEY_F5)){
+			if(isThirdPerson)
+				isThirdPerson = false;
+			else
+				isThirdPerson = true;
 		}
 
 	}
@@ -133,7 +144,7 @@ public class Main implements Runnable {
 
 	private void close(){
 		window.destroy();
-		mesh.destroy();
+//		mesh.destroy();
 		shader.destroy();
 	}
 	

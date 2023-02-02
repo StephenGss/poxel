@@ -44,7 +44,11 @@ public class Material {
     }
 
     public void create(){
-        textureID = glGenTextures();
+        try {
+            textureID = glGenTextures();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         glBindTexture(GL_TEXTURE_2D, textureID);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);

@@ -6,6 +6,7 @@ import engine.maths.Vector3f;
 public class Vertex {
 	private Vector3f position, color;
 	private Vector2f textureCoord;
+	private Vector3f normalVector;
 
 	public Vertex(Vector3f position) {
 		this.position = position;
@@ -17,6 +18,13 @@ public class Vertex {
 		this.position = position;
 		this.color = color;
 		this.textureCoord = new Vector2f(0, 0);
+	}
+
+	public Vertex(Vector3f position, Vector2f textureCoord, Vector3f normalVector) {
+		this.position = position;
+		this.color = new Vector3f(0, 0, 0);
+		this.textureCoord = textureCoord;
+		this.normalVector = normalVector;
 	}
 
 	public Vertex(Vector3f position, Vector2f textureCoord) {
