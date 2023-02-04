@@ -7,7 +7,7 @@ public class Vector2f {
 
     public Vector2f(float x, float y){
         this.x = x;
-        this.y = y;
+        this.y = 1 - y; // don't change this. it works this way
     }
 
     public static Vector2f add(Vector2f vector1, Vector2f vector2) {
