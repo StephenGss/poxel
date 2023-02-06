@@ -4,15 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="70481850-79e6-41bf-a49f-73bd243b3a19" name="Changes" comment="Better test grass image">
-      <change afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/GUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/model/OBJLoader.java" afterDir="false" />
+    <list default="true" id="70481850-79e6-41bf-a49f-73bd243b3a19" name="Changes" comment="obj textures are now loaded correctly">
+      <change afterPath="$PROJECT_DIR$/src/main/java/engine/object/Light.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/graphics/Material.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/Material.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/graphics/Mesh.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/Mesh.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/graphics/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/graphics/Shader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/Shader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/engine/graphics/Vertex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/Vertex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/engine/object/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/object/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/engine/graphics/model/OBJLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/graphics/model/OBJLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/engine/object/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/engine/object/GameObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/mainFragment.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/mainFragment.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/shaders/mainVertex.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/shaders/mainVertex.glsl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +171,21 @@
       <option name="project" value="LOCAL" />
       <updated>1675226055889</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Can now load obj files. textures seem need mirror along x=y to work properly">
+      <created>1675313028709</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1675313028709</updated>
+    </task>
+    <task id="LOCAL-00012" summary="obj textures are now loaded correctly">
+      <created>1675553398720</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1675553398720</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -181,17 +198,8 @@
     <MESSAGE value="Add camera translational movement" />
     <MESSAGE value="Add camera rotation and mouse locking" />
     <MESSAGE value="Better test grass image" />
-    <option name="LAST_COMMIT_MESSAGE" value="Better test grass image" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.3.1/1a827bc02651fa44d32f424c380edc6d53f94a62/lwjgl-opengl-3.3.1-sources.jar!/org/lwjgl/opengl/GL11C.java</url>
-          <line>663</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Can now load obj files. textures seem need mirror along x=y to work properly" />
+    <MESSAGE value="obj textures are now loaded correctly" />
+    <option name="LAST_COMMIT_MESSAGE" value="obj textures are now loaded correctly" />
   </component>
 </project>

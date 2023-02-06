@@ -3,6 +3,7 @@ package engine.graphics;
 import engine.maths.Matrix4f;
 import engine.maths.Vector2f;
 import engine.maths.Vector3f;
+import engine.object.Light;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 
@@ -14,6 +15,8 @@ import java.nio.FloatBuffer;
 public class Shader {
 	private String vertexFile, fragmentFile;
 	private int vertexID, fragmentID, programID;
+	private int location_lightPosition;
+	private int location_lightColor;
 	
 	public Shader(String vertexPath, String fragmentPath) {
 		vertexFile = FileUtils.loadAsString(vertexPath);
@@ -56,6 +59,10 @@ public class Shader {
 			System.err.println("Program Validation: " + GL20.glGetProgramInfoLog(programID));
 			return;
 		}
+
+	}
+
+	public void loadLight(Light light){
 
 	}
 

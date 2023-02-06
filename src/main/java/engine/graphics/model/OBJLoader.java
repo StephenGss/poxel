@@ -97,7 +97,8 @@ public class OBJLoader {
     }
 
     private static void processVertex(String[] vertexData, List<Vector3f> verticies, List<Integer> indices, List<Vector2f> textures, List<Vector3f> normals, Vertex[] vertexArray){
-        int currentVertexPointer = Integer.parseInt(vertexData[0]) - 1;
+        int currentVertexPointer = (Integer.parseInt(vertexData[0])-1);
+//        System.out.println("Vertex: " + currentVertexPointer);
         indices.add(currentVertexPointer);
         // add texture coords to vertex
         Vector2f currentTex = textures.get(Integer.parseInt(vertexData[1])-1);

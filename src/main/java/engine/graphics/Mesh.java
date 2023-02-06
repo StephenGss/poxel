@@ -4,6 +4,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import engine.graphics.Vertex;
+import engine.maths.Vector3f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
@@ -13,6 +14,7 @@ import org.lwjgl.system.MemoryUtil;
 public class Mesh {
 	private Vertex[] vertices;
 	private int[] indices;
+
 	private Material material;
 	private int vao, pbo, ibo, cbo, tbo;
 	
@@ -31,6 +33,8 @@ public class Mesh {
 		FloatBuffer positionBuffer = MemoryUtil.memAllocFloat(vertices.length * 3);
 		float[] positionData = new float[vertices.length * 3];
 		for (int i = 0; i < vertices.length; i++) {
+//			if(vertices[i] == null)
+//				vertices[i] = new Vertex(new Vector3f(0, 0, 0));
 			positionData[i * 3] = vertices[i].getPosition().getX();
 			positionData[i * 3 + 1] = vertices[i].getPosition().getY();
 			positionData[i * 3 + 2] = vertices[i].getPosition().getZ();
@@ -38,6 +42,7 @@ public class Mesh {
 		positionBuffer.put(positionData).flip();
 		
 		pbo = storeData(positionBuffer, 0, 3);
+
 
 		//Color section
 		FloatBuffer colorBuffer = MemoryUtil.memAllocFloat(vertices.length * 3);
@@ -51,6 +56,7 @@ public class Mesh {
 
 		cbo = storeData(colorBuffer, 1, 3);
 
+
 		//Texture section
 		FloatBuffer textureBuffer = MemoryUtil.memAllocFloat(vertices.length * 2);
 		float[] textureData = new float[vertices.length * 2];
@@ -61,6 +67,20 @@ public class Mesh {
 		textureBuffer.put(textureData).flip();
 
 		tbo = storeData(textureBuffer, 2, 2);
+
+
+		//Normals section
+		FloatBuffer normalBuffer = MemoryUtil.memAllocFloat(vertices.length * 3);
+		float[] normalData = new float[vertices.length * 3];
+		for (int i = 0; i < vertices.length; i++) {
+			normalData[i * 3] = vertices[i].getNormalVector().getX();
+			normalData[i * 3 + 1] = vertices[i].getNormalVector().getY();
+			normalData[i * 3 + 2] = vertices[i].getNormalVector().getZ();
+		}
+		normalBuffer.put(normalData).flip();
+
+		cbo = storeData(normalBuffer, 3, 3);
+
 
 		IntBuffer indicesBuffer = MemoryUtil.memAllocInt(indices.length);
 		indicesBuffer.put(indices).flip();

@@ -50,4 +50,8 @@ public class Vertex {
 	public Vector2f getTextureCoord() {
 		return textureCoord;
 	}
+
+	public Vector3f getNormalVector() {
+		return normalVector;
+	}
 }
