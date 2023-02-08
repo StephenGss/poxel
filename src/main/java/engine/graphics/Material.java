@@ -17,6 +17,10 @@ public class Material {
     private ByteBuffer texture;
     private int width, height, comp, textureID;
 
+    // specular lighting
+    private float shineDamper = 1;
+    private float reflectivity = 0;
+
     public Material(String path){
         // load in image
         ByteBuffer imageBuffer;
@@ -142,5 +146,21 @@ public class Material {
 
     public int getTextureID() {
         return textureID;
+    }
+
+    public float getShineDamper() {
+        return shineDamper;
+    }
+
+    public void setShineDamper(float shineDamper) {
+        this.shineDamper = shineDamper;
+    }
+
+    public float getReflectivity() {
+        return reflectivity;
+    }
+
+    public void setReflectivity(float reflectivity) {
+        this.reflectivity = reflectivity;
     }
 }

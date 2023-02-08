@@ -10,6 +10,9 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL30;
 
+import java.util.List;
+import java.util.Map;
+
 public class Renderer {
 	private Shader shader;
 	private Window window;
@@ -18,7 +21,53 @@ public class Renderer {
 		this.shader = shader;
 		this.window = window;
 	}
-	
+
+	public void render(Map<Mesh, List<GameObject>> gameObjects, Camera camera){
+		for(Mesh mesh: gameObjects.keySet()){
+			prepareMesh(mesh);
+			List<GameObject> batch = gameObjects.get(mesh);
+			for(GameObject object: batch){
+				prepareInstance(object, camera);
+
+				GL11.glDrawElements(GL11.GL_TRIANGLES, object.getMesh().getIndices().length, GL11.GL_UNSIGNED_INT, 0);
+			}
+			unbindMesh();
+		}
+	}
+
+	private void prepareMesh(Mesh mesh){
+		GL30.glBindVertexArray(mesh.getVAO());
+		GL30.glEnableVertexAttribArray(0);
+		GL30.glEnableVertexAttribArray(1);
+		GL30.glEnableVertexAttribArray(2);
+		GL30.glEnableVertexAttribArray(3);
+		GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, mesh.getIBO());
+		GL13.glActiveTexture(GL13.GL_TEXTURE0);
+		GL13.glBindTexture(GL11.GL_TEXTURE_2D, mesh.getMaterial().getTextureID());
+		shader.bind();
+		shader.setUniform("shineDamper", mesh.getMaterial().getShineDamper());
+		shader.setUniform("reflectivity", mesh.getMaterial().getReflectivity());
+	}
+
+	private void unbindMesh(){
+		shader.unbind();
+		GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
+		GL30.glDisableVertexAttribArray(0);
+		GL30.glDisableVertexAttribArray(1);
+		GL30.glDisableVertexAttribArray(2);
+		GL30.glDisableVertexAttribArray(3);
+		GL30.glBindVertexArray(0);
+	}
+
+	private void prepareInstance(GameObject gameObject, Camera camera){
+		shader.setUniform("transform", Matrix4f.transform(gameObject.getPosition(), gameObject.getRotation(), gameObject.getScale()));
+		shader.setUniform("view", Matrix4f.view(camera.getPosition(), camera.getRotation()));
+		shader.setUniform("projection", window.getProjectionMatrix());
+		// TODO: finish lighting to be based on light object
+		shader.setUniform("lightPosition", new Vector3f(10, 5, 0));
+		shader.setUniform("lightColor", new Vector3f(1, 1, 1));
+	}
+
 	public void renderObject(GameObject obj, Camera camera) {
 		GL30.glBindVertexArray(obj.getMesh().getVAO());
 		GL30.glEnableVertexAttribArray(0);
@@ -29,11 +78,17 @@ public class Renderer {
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		GL13.glBindTexture(GL11.GL_TEXTURE_2D, obj.getMesh().getMaterial().getTextureID());
 		shader.bind();
+
 		shader.setUniform("transform", Matrix4f.transform(obj.getPosition(), obj.getRotation(), obj.getScale()));
 		shader.setUniform("view", Matrix4f.view(camera.getPosition(), camera.getRotation()));
 		shader.setUniform("projection", window.getProjectionMatrix());
+		// TODO: finish lighting to be based on light object
 		shader.setUniform("lightPosition", new Vector3f(10, 5, 0));
 		shader.setUniform("lightColor", new Vector3f(1, 1, 1));
+
+		shader.setUniform("shineDamper", obj.getMesh().getMaterial().getShineDamper());
+		shader.setUniform("reflectivity", obj.getMesh().getMaterial().getReflectivity());
+
 		GL11.glDrawElements(GL11.GL_TRIANGLES, obj.getMesh().getIndices().length, GL11.GL_UNSIGNED_INT, 0);
 		shader.unbind();
 		GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -42,32 +97,6 @@ public class Renderer {
 		GL30.glDisableVertexAttribArray(2);
 		GL30.glDisableVertexAttribArray(3);
 		GL30.glBindVertexArray(0);
-
-
-//		glEnable(GL_TEXTURE_2D);
-//		glClearColor(43f / 255f, 43f / 255f, 43f / 255f, 0f);
-//
-//		glPushMatrix();
-////		glTranslatef(ww * 0.5f, wh * 0.5f, 0.0f);
-////		glScalef(1, 1, 1f);
-////		glTranslatef(-w * 0.5f, -h * 0.5f, 0.0f);
-//		glBegin(GL_QUADS);
-//		{
-//			glTexCoord2f(0.0f, 0.0f);
-//			glVertex2f(0.0f, 0.0f);
-//
-//			glTexCoord2f(1.0f, 0.0f);
-//			glVertex2f(32, 0.0f);
-//
-//			glTexCoord2f(1.0f, 1.0f);
-//			glVertex2f(32, 32);
-//
-//			glTexCoord2f(0.0f, 1.0f);
-//			glVertex2f(0.0f, 32);
-//		}
-//		glEnd();
-//		glPopMatrix();
-//		glDisable(GL_TEXTURE_2D);
 	}
 
 }

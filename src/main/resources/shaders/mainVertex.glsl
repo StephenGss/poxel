@@ -9,6 +9,7 @@ out vec3 passColor;
 out vec2 passTextureCoord;
 out vec3 surfaceNormal;
 out vec3 toLightVector;
+out vec3 toCameraVector;
 
 uniform mat4 transform;
 uniform mat4 view;
@@ -24,4 +25,5 @@ void main() {
 
 	surfaceNormal = (transform * vec4(normal, 0.0)).xyz;
 	toLightVector = lightPosition - worldPosition.xyz;
+	toCameraVector = (inverse(view) * vec4(0.0,0.0,0.0,1.0)).xyz - worldPosition.xyz;
 }

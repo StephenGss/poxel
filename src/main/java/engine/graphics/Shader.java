@@ -17,6 +17,8 @@ public class Shader {
 	private int vertexID, fragmentID, programID;
 	private int location_lightPosition;
 	private int location_lightColor;
+	private int location_shineDamper;
+	private int location_reflectivity;
 	
 	public Shader(String vertexPath, String fragmentPath) {
 		vertexFile = FileUtils.loadAsString(vertexPath);
@@ -24,6 +26,10 @@ public class Shader {
 	}
 	
 	public void create() {
+
+		GL11.glEnable(GL11.GL_CULL_FACE);
+		GL11.glCullFace(GL11.GL_BACK);
+
 		programID = GL20.glCreateProgram();
 		vertexID = GL20.glCreateShader(GL20.GL_VERTEX_SHADER);
 		

@@ -29,7 +29,7 @@ public class Main implements Runnable {
 //	public GameObject object = new GameObject(new Vector3f(0,0,0), new Vector3f(0,0,0), new Vector3f(1,1,1), OBJLoader.loadObjModel("treesub"));
 	public ArrayList<GameObject> objects = new ArrayList<GameObject>();
 
-	public Camera camera = new Camera(new Vector3f(0,0,1), new Vector3f(0,0,0));
+	public Camera camera = new Camera(new Vector3f(-10,5,1), new Vector3f(0,0,0));
 
 	Light light = new Light(new Vector3f(0, 0, -20), new Vector3f(1, 1, 1));
 	
@@ -44,22 +44,29 @@ public class Main implements Runnable {
 		renderer = new Renderer(window, shader);
 		window.setBackgroundColor(0.50f, 0.5f, 0.5f);
 		window.create();
-		objects.add(new GameObject(new Vector3f(10,0,0), new Vector3f(0,0,0), new Vector3f(1,1,1), OBJLoader.loadObjModel("treesub")));
-		objects.add(new GameObject(new Vector3f(5,0,-8), new Vector3f(0,0,0), new Vector3f(1,1,1), OBJLoader.loadObjModel("stall")));
-		objects.add(new GameObject(new Vector3f(-10,0,0), new Vector3f(0,0,0), new Vector3f(1,1,1), OBJLoader.loadObjModel("tree")));
-		for(GameObject object: objects)
-			object.create();
-		shader.create();
 
+		objects.add(new GameObject(new Vector3f(5,0,-8), new Vector3f(0,0,0), new Vector3f(1,1,1), OBJLoader.loadObjModel("stall")));
+		for(int i =0; i<100;i++){
+			objects.add(new GameObject(new Vector3f((float) (Math.random()*100.0f) - 50f,0,(float) (Math.random()*100.0f) - 50f), new Vector3f(0,0,0), new Vector3f(1,1,1), OBJLoader.loadObjModel("tree")));
+		}
+		for(GameObject object: objects) {
+			object.create();
+//			object.getMesh().getMaterial().setShineDamper(10);
+//			object.getMesh().getMaterial().setReflectivity(0.5f);
+		}
 	}
 	
 	public void run() {
 		init();
+
+		MasterRenderer mainRenderer = new MasterRenderer(shader, renderer);
 		while (!window.shouldClose() && !Input.isKeyDown(GLFW.GLFW_KEY_ESCAPE)) {
 			update();
-			render();
+			render(mainRenderer);
 			if (Input.isKeyDown(GLFW.GLFW_KEY_F11)) window.setFullscreen(!window.isFullscreen());
 		}
+
+		mainRenderer.cleanUp();
 
 		for(int texture:textures)
 			GL11.glDeleteTextures(texture);
@@ -75,10 +82,12 @@ public class Main implements Runnable {
 				camera.update(object);
 		else
 			camera.update();
+
 		if (Input.isButtonDown(GLFW.GLFW_MOUSE_BUTTON_LEFT)) {
 			window.mouseState(true);
 //			camera.getPosition().setZ(camera.getPosition().getZ()+0.1f);
 		}
+
 		if(Input.isKeyDown(GLFW.GLFW_KEY_F5)){
 			if(isThirdPerson)
 				isThirdPerson = false;
@@ -88,9 +97,10 @@ public class Main implements Runnable {
 
 	}
 	
-	private void render() {
+	private void render(MasterRenderer mainRenderer) {
 		for(GameObject object: objects)
-			renderer.renderObject(object, camera);
+			mainRenderer.processEntity(object);
+		mainRenderer.render(light, camera);
 		window.swapBuffers();
 	}
 
